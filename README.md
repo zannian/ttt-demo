@@ -1,70 +1,28 @@
-# Getting Started with Create React App
+### 这是一个基于 react 写的一个井字棋 demo
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### 代码逻辑
 
-## Available Scripts
+##### 构造棋盘格
 
-In the project directory, you can run:
+使用类组件构造棋盘格，并给不同的棋盘格传入不同的参数
 
-### `npm start`
+##### 点击下棋
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+点击对应的格子，使该格子的内容变成 X，使用数组保存这个值到对应的位置。
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+##### 状态提升
 
-### `npm test`
+将保存状态的数组，从本级提高到上一级组件，监听点击事件并且传入数组给子组件处理
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+##### 优化
 
-### `npm run build`
+当 x 下过了，那么把即将填充的值变成 o，使用一个 flag 进行判断。
+如果对应位置的值不为空，那么点击棋盘就无响应，如果棋盘满了，那么点击棋盘也无响应。
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+##### 输赢判断
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+判断棋盘对应位置坐标上的值是否一致且不为空，比如第一行三个坐标为[0,1,2]，第一列坐标为[0,3,6]
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+##### 历史回溯
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+再次状态提升，将每一步的棋盘保存为一个数组的一项。记录下来，点击该步骤时，将该步的棋盘替换现在的棋盘，且当落下一步棋之后，将之后的步骤的数组全部切除。
